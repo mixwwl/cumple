@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('foto1.jpg'); /* Enlace directo a la imagen */
+            background-size: cover; /* Cambia a cover para que la imagen cubra toda la pantalla */
+            animation: moveBackground 10s linear infinite; /* Animación de movimiento */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Para evitar el scroll cuando los globos se elevan */
+        }
+        @keyframes moveBackground {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            transition: background-color 0.5s; /* Transición suave para el cambio de color */
+        }
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #ff6f61, #ffcc00, #32cd32, #6a5acd, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rainbow 3s ease infinite;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        @keyframes rainbow {
+            0% { background-position: 0%; }
+            100% { background-position: 100%; }
+        }
+        .balloon {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            border-radius: 15px 15px 0 0;
+            bottom: 0;
+            animation: float 3s ease-in forwards;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            bottom: 0;
+            animation: float 3s ease-in forwards;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-300px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="color-container">
+        <h1 id="birthday-header">¡Feliz Cumpleaños Tio Elba!</h1>
+        <p>Hoy celebramos un día muy especial: ¡tu cumpleaños, querida tía! Que este nuevo año de vida te regale momentos llenos de alegría, amor sincero y sorpresas maravillosas. Eres una persona increíble y mereces disfrutar cada instante de tu día al máximo. ¡Feliz cumpleaños!</p>
+        <button class="button" id="celebrate-button">¡Celebremos Saludos de Claudio!</button>
+        <audio id="birthday-audio" src="https://drive.google.com/uc?export=download&id=1ioM6T9ZAKhzfwPZjKwSkGguQls_9tPtw" preload="auto"></audio> <!-- Enlace directo al audio -->
+    </div>
+
+    <script>
+        document.getElementById('celebrate-button').addEventListener('click', function() {
+            const audio = document.getElementById('birthday-audio');
+            audio.play(); // Reproduce la canción al hacer clic en el botón
+            createBalloon();
+            createHeart();
+            changeContainerColor();
+        });
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+            
+            // Colores de los globos
+            const colors = ['#ff6f61', '#ffcc00', '#32cd32', '#6a5acd', '#ff4500', '#00bfff', '#ff1493', '#ff8c00'];
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; // Color aleatorio
+            
+            document.body.appendChild(balloon);
+
+            // Eliminar el globo después de la animación
+            balloon.addEventListener('animationend', function() {
+                balloon.remove();
+            });
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+            heart.style.bottom = Math.random() * 100 + 'vh'; // Posición vertical aleatoria
+
+            document.body.appendChild(heart);
+
+            // Eliminar el corazón después de la animación
+            heart.addEventListener('animationend', function() {
+                heart.remove();
+            });
+        }
+
+        function changeContainerColor() {
+            const container = document.getElementById('color-container');
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16); // Generar un color hexadecimal aleatorio
+            container.style.backgroundColor = randomColor; // Cambiar el color de fondo del contenedor
+        }
+    </script>
+</body>
+</html>
